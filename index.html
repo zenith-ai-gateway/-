@@ -1,202 +1,225 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenith AI Gateway - Your Self-Hosted AI API Gateway</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zenith AI Gateway — One‑Click AI API Gateway</title>
+  <meta name="description" content="Zenith AI Gateway is a self‑hosted, one‑click AI API gateway built on LiteLLM with Docker + Postgres. Manage GPT, Claude, Gemini & more behind a single, secure endpoint." />
+  <meta name="theme-color" content="#4f46e5" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Zenith AI Gateway — One‑Click AI API Gateway" />
+  <meta property="og:description" content="Self‑hosted, one‑click AI API gateway. Standardize calls, secure your keys, monitor costs. Windows, macOS, Linux." />
+  <meta property="og:image" content="https://dummyimage.com/1200x630/0b1020/ffffff&text=Zenith+AI+Gateway" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Zenith AI Gateway — One‑Click AI API Gateway" />
+  <meta name="twitter:description" content="Self‑hosted, one‑click AI API gateway. Standardize calls, secure your keys, monitor costs. Windows, macOS, Linux." />
+  <meta name="twitter:image" content="https://dummyimage.com/1200x630/0b1020/ffffff&text=Zenith+AI+Gateway" />
+
+  <!-- Tailwind CDN (required) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind quick config for brand color
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+              400: '#818cf8', 500: '#6366f1', 600: '#5458e6', 700: '#4549d7',
+              800: '#3b3fb7', 900: '#323596', 950: '#1c1e61'
+            }
+          },
+          boxShadow: {
+            glow: '0 0 0 1px rgba(99,102,241,0.35), 0 8px 40px -12px rgba(99,102,241,0.45)'
+          }
         }
-        .gradient-bg {
-            background: radial-gradient(circle at top, rgba(30, 41, 59, 0.8), rgba(17, 24, 39, 1) 70%);
-        }
-        .feature-card {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(55, 65, 81, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-    </style>
+      }
+    }
+  </script>
+  <style>
+    /* Prefer a clean, modern sans stack (Inter-like without external CSS) */
+    :root { --bg: #0b1020; --card: #0f172a; --muted: #94a3b8; }
+    html, body { height: 100%; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    ::selection{ background:#6366f1; color:white }
+    pre, code { font-feature-settings: "liga" 0; }
+  </style>
 </head>
-<body class="bg-gray-900 text-gray-200 antialiased">
+<body class="bg-slate-950 text-slate-200 antialiased">
+  <!-- ===== Navbar ===== -->
+  <header class="sticky top-0 z-40 border-b border-white/5 bg-slate-950/70 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a href="#top" class="flex items-center gap-2" aria-label="Zenith AI Gateway Home">
+        <!-- Simple brand mark -->
+        <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-brand-500/20 ring-1 ring-brand-500/40">
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4">
+            <path d="M12 3l7 4v10l-7 4-7-4V7l7-4z" class="fill-brand-500"/>
+            <path d="M12 7l4 2v6l-4 2-4-2V9l4-2z" class="fill-white/30"/>
+          </svg>
+        </span>
+        <span class="text-base font-semibold tracking-tight">Zenith AI Gateway</span>
+      </a>
+      <div>
+        <a href="https://your-gumroad-link.gumroad.com/l/zenithai" target="_blank" rel="noopener" class="group inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-slate-950">
+          <span>Get on Gumroad</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 transition group-hover:translate-x-0.5" fill="currentColor"><path d="M13 5h6v6h-2V8.414l-9.293 9.293-1.414-1.414L15.586 7H13V5Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
 
-    <!-- Header -->
-    <header class="py-4 px-4 md:px-8 sticky top-0 z-50" style="background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(55, 65, 81, 0.5);">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <!-- Icon SVG -->
-                <svg class="w-8 h-8 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V8.25a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 8.25v10.5A2.25 2.25 0 006.75 21z" />
-                </svg>
-                <h1 class="text-2xl font-bold text-white">Zenith AI Gateway</h1>
-            </div>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#features" class="hover:text-indigo-400 transition-colors">Features</a>
-                <a href="#how-it-works" class="hover:text-indigo-400 transition-colors">How It Works</a>
-                <a href="https://github.com/your-username/zenith-ai-gateway" target="_blank" class="hover:text-indigo-400 transition-colors">GitHub</a>
-            </nav>
-            <!-- Replace # with your Gumroad product URL -->
-            <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
-                Get It Now
-            </a>
+  <!-- ===== Hero ===== -->
+  <main id="top" class="relative">
+    <section class="relative overflow-hidden">
+      <div class="pointer-events-none absolute inset-0 -z-10 opacity-30" aria-hidden="true">
+        <div class="absolute left-1/2 top-[-10%] h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-brand-500 blur-[120px]"></div>
+      </div>
+
+      <div class="mx-auto max-w-7xl px-4 pb-16 pt-14 sm:px-6 lg:px-8 lg:pb-24 lg:pt-20">
+        <div class="mx-auto max-w-3xl text-center">
+          <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+            Your Personal AI Gateway. <span class="text-brand-400">One Click</span> Away.
+          </h1>
+          <p class="mt-6 text-lg leading-relaxed text-slate-300">
+            Zenith AI Gateway gives you a secure, self‑hosted dashboard to manage all your AI models from OpenAI, Anthropic, Google, and more. Standardize your API calls, control your keys, and monitor costs with a simple, cross‑platform installer.
+          </p>
+          <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a href="https://your-gumroad-link.gumroad.com/l/zenithai" target="_blank" rel="noopener" class="inline-flex w-full items-center justify-center rounded-2xl bg-brand-500 px-6 py-3 text-base font-semibold text-white shadow-glow transition hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-slate-950 sm:w-auto">Get Your Gateway Now</a>
+          </div>
+          <div class="mt-6 flex items-center justify-center gap-3 text-xs text-slate-400">
+            <span class="inline-flex items-center gap-1 rounded-full bg-white/5 px-3 py-1 ring-1 ring-white/10">Runs on <strong class="ml-1 font-semibold text-white">Windows • macOS • Linux</strong></span>
+            <span>•</span>
+            <span>No cloud lock‑in. Your keys, your machine.</span>
+          </div>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="relative py-20 md:py-32 overflow-hidden gradient-bg">
-            <div class="container mx-auto px-4 text-center relative z-10">
-                <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-                    Your Personal, Self-Hosted <br class="hidden md:block"> AI API Gateway
-                </h2>
-                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-400">
-                    A one-click installer for the powerful LiteLLM proxy. Standardize API calls, manage multiple models, and monitor costs from a secure dashboard running on your own machine.
-                </p>
-                <div class="mt-10 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <!-- Replace # with your Gumroad product URL -->
-                    <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 shadow-lg">
-                        Get Zenith Gateway
-                    </a>
-                    <a href="https://github.com/your-username/zenith-ai-gateway" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 shadow-lg">
-                        View on GitHub
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section id="features" class="py-20 bg-gray-900">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h3 class="text-3xl md:text-4xl font-bold text-white">Why Zenith AI Gateway?</h3>
-                    <p class="mt-4 text-gray-400 max-w-xl mx-auto">Everything you need to manage your AI models, packaged for convenience and reliability.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Feature Card 1 -->
-                    <div class="feature-card p-8 rounded-xl">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 text-white mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
-                        </div>
-                        <h4 class="text-xl font-semibold text-white mb-2">Universal API</h4>
-                        <p class="text-gray-400">Use the standard OpenAI API format to call over 100 different LLM providers. No need to rewrite your code when you switch models.</p>
-                    </div>
-                    <!-- Feature Card 2 -->
-                    <div class="feature-card p-8 rounded-xl">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 text-white mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        </div>
-                        <h4 class="text-xl font-semibold text-white mb-2">One-Click Installation</h4>
-                        <p class="text-gray-400">Simple, robust installer scripts for Windows, macOS, and Linux handle all the complex setup for you. Get running in minutes.</p>
-                    </div>
-                    <!-- Feature Card 3 -->
-                    <div class="feature-card p-8 rounded-xl">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 text-white mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                        </div>
-                        <h4 class="text-xl font-semibold text-white mb-2">Local & Secure</h4>
-                        <p class="text-gray-400">Everything runs locally on your machine. Your API keys, configuration, and usage data never leave your system.</p>
-                    </div>
-                    <!-- Feature Card 4 -->
-                    <div class="feature-card p-8 rounded-xl">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 text-white mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                        </div>
-                        <h4 class="text-xl font-semibold text-white mb-2">Admin Dashboard</h4>
-                        <p class="text-gray-400">A built-in web UI to manage models, add provider keys, create virtual keys for your apps, and monitor spending in real-time.</p>
-                    </div>
-                    <!-- Feature Card 5 -->
-                    <div class="feature-card p-8 rounded-xl">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 text-white mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4M4 7l8 5 8-5" /></svg>
-                        </div>
-                        <h4 class="text-xl font-semibold text-white mb-2">Reliable & Persistent</h4>
-                        <p class="text-gray-400">Uses a dedicated Postgres database to reliably store your configuration and usage data, which persists between restarts.</p>
-                    </div>
-                    <!-- Feature Card 6 -->
-                    <div class="feature-card p-8 rounded-xl">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 text-white mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9" /></svg>
-                        </div>
-                        <h4 class="text-xl font-semibold text-white mb-2">Cross-Platform</h4>
-                        <p class="text-gray-400">Includes tailored installer scripts for Windows, macOS, and Linux, ensuring a smooth experience on any major OS.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- How It Works Section -->
-        <section id="how-it-works" class="py-20 bg-gray-800/50">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h3 class="text-3xl md:text-4xl font-bold text-white">Simple Setup, Powerful Results</h3>
-                    <p class="mt-4 text-gray-400 max-w-xl mx-auto">Just download, unzip, and run one command. The installer handles the rest.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <!-- Windows -->
-                    <div>
-                        <h4 class="text-2xl font-semibold text-white mb-4">For Windows</h4>
-                        <div class="bg-gray-900 rounded-lg p-4">
-                            <code class="text-green-400">C:\zenith-ai-gateway> </code><code class="text-white">install.bat</code>
-                        </div>
-                        <p class="mt-4 text-gray-400">Double-click the `install.bat` script. It will guide you through the setup, and automatically open the dashboard in your browser when it's done.</p>
-                    </div>
-                    <!-- macOS / Linux -->
-                    <div>
-                        <h4 class="text-2xl font-semibold text-white mb-4">For macOS & Linux</h4>
-                        <div class="bg-gray-900 rounded-lg p-4">
-                            <code class="text-green-400">~/zenith-ai-gateway$ </code><code class="text-white">bash install.sh</code>
-                        </div>
-                        <p class="mt-4 text-gray-400">Open your terminal, navigate to the folder, and run the `install.sh` script. It will handle the setup and provide you with the dashboard URL.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Screenshot Section -->
-        <section class="py-20 bg-gray-900">
-            <div class="container mx-auto px-4 text-center">
-                 <h3 class="text-3xl md:text-4xl font-bold text-white">Manage Everything from the Dashboard</h3>
-                 <p class="mt-4 text-gray-400 max-w-xl mx-auto">Add new models, create virtual keys, and track spending across all your projects from a clean web interface.</p>
-                 <div class="mt-10">
-                    <!-- You can replace this placeholder with a real screenshot of your dashboard -->
-                    <img src="https://placehold.co/1200x675/111827/7C3AED?text=Zenith+Dashboard+Screenshot" 
-                         alt="Zenith AI Gateway Dashboard" 
-                         class="rounded-lg shadow-2xl mx-auto border-4 border-gray-700"
-                         onerror="this.onerror=null;this.src='https://placehold.co/1200x675/111827/FFFFFF?text=Image+Not+Found';">
-                 </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="py-20 gradient-bg">
-            <div class="container mx-auto px-4 text-center">
-                <h3 class="text-3xl md:text-4xl font-bold text-white">Ready to Get Started?</h3>
-                <p class="mt-4 text-gray-400 max-w-xl mx-auto">Get your personal AI gateway up and running in under five minutes. Stop juggling APIs and start building.</p>
-                <div class="mt-8">
-                    <!-- Replace # with your Gumroad product URL -->
-                    <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-10 rounded-lg text-xl transition-transform transform hover:scale-105 shadow-lg">
-                        Download Zenith AI Gateway Now
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800">
-        <div class="container mx-auto py-6 px-4 text-center text-gray-500">
-            <p>&copy; 2025 Zenith AI Gateway. All Rights Reserved.</p>
-            <p class="mt-2">
-                <a href="https://github.com/your-username/zenith-ai-gateway" target="_blank" class="hover:text-indigo-400 transition-colors">View on GitHub</a>
-            </p>
+    <!-- ===== Features ===== -->
+    <section id="features" class="border-t border-white/5 bg-slate-950/60">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-4xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Everything You Need, Nothing You Don’t</h2>
+          <p class="mt-3 text-slate-400">Purpose‑built for developers, freelancers, and small teams who value privacy, security, and control.</p>
         </div>
-    </footer>
 
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Feature 1 -->
+          <div class="rounded-2xl bg-slate-900/60 p-6 ring-1 ring-white/10">
+            <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/15 ring-1 ring-brand-500/30">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M6 12h12M9 18h6"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold">One‑Click Installation</h3>
+            <p class="mt-2 text-sm text-slate-400">Run a single script on Windows, macOS, or Linux. No complex configuration needed.</p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="rounded-2xl bg-slate-900/60 p-6 ring-1 ring-white/10">
+            <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/15 ring-1 ring-brand-500/30">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold">Universal API</h3>
+            <p class="mt-2 text-sm text-slate-400">Use the standard OpenAI API format to interact with 100+ LLM providers behind one endpoint.</p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="rounded-2xl bg-slate-900/60 p-6 ring-1 ring-white/10">
+            <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/15 ring-1 ring-brand-500/30">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold">Local & Secure</h3>
+            <p class="mt-2 text-sm text-slate-400">Your API keys and usage data never leave your machine. Everything runs in secure Docker containers.</p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="rounded-2xl bg-slate-900/60 p-6 ring-1 ring-white/10">
+            <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/15 ring-1 ring-brand-500/30">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5h18v14H3z"/><path d="M7 9h4v6H7zM15 9h2v6h-2z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold">Powerful Admin UI</h3>
+            <p class="mt-2 text-sm text-slate-400">Built‑in web dashboard to manage models, credentials, and virtual keys for your apps.</p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="rounded-2xl bg-slate-900/60 p-6 ring-1 ring-white/10">
+            <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/15 ring-1 ring-brand-500/30">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M8 7v10m8-10v10M6 17h12"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold">Cost Management</h3>
+            <p class="mt-2 text-sm text-slate-400">Track your spending across all models and providers from one central place.</p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="rounded-2xl bg-slate-900/60 p-6 ring-1 ring-white/10">
+            <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/15 ring-1 ring-brand-500/30">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h6"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold">Reliable & Persistent</h3>
+            <p class="mt-2 text-sm text-slate-400">Backed by a dedicated Postgres database—your configuration and data stay safe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== How It Works ===== -->
+    <section id="how" class="border-t border-white/5 bg-slate-950">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Installation is as Easy as…</h2>
+          <p class="mt-3 text-slate-400">Run the installer for your OS. Zenith handles the rest—Docker network, Postgres, and the LiteLLM proxy—automatically.</p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <!-- macOS & Linux -->
+          <div class="rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10">
+            <div class="mb-3 flex items-center justify-between">
+              <span class="text-sm font-medium text-slate-300">macOS & Linux</span>
+              <span class="rounded-md bg-white/5 px-2 py-1 text-[10px] tracking-wide text-slate-400 ring-1 ring-white/10">bash</span>
+            </div>
+            <pre class="overflow-auto rounded-xl bg-black/60 p-4 text-sm leading-relaxed text-slate-200 ring-1 ring-white/10"><code>$ bash install.sh</code></pre>
+          </div>
+
+          <!-- Windows -->
+          <div class="rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10">
+            <div class="mb-3 flex items-center justify-between">
+              <span class="text-sm font-medium text-slate-300">Windows</span>
+              <span class="rounded-md bg-white/5 px-2 py-1 text-[10px] tracking-wide text-slate-400 ring-1 ring-white/10">batch</span>
+            </div>
+            <pre class="overflow-auto rounded-xl bg-black/60 p-4 text-sm leading-relaxed text-slate-200 ring-1 ring-white/10"><code>C:\&gt; install.bat</code></pre>
+          </div>
+        </div>
+
+        <p class="mx-auto mt-6 max-w-3xl text-center text-sm text-slate-400">Just run the script for your OS. Zenith configures Docker, provisions the Postgres database, and launches the proxy with sane defaults. You’ll be ready to point your apps to a single, standardized endpoint in minutes.</p>
+      </div>
+    </section>
+
+    <!-- ===== Final CTA ===== -->
+    <section id="buy" class="border-y border-white/5 bg-gradient-to-b from-slate-950 to-slate-900">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Take Control of Your AI Workflow Today</h2>
+          <p class="mt-3 text-slate-400">Own your gateway, standardize your stack, and keep your keys private. No vendor lock‑in, no surprises.</p>
+          <a href="https://your-gumroad-link.gumroad.com/l/zenithai" target="_blank" rel="noopener" class="mt-8 inline-flex items-center justify-center rounded-2xl bg-brand-500 px-6 py-3 text-base font-semibold text-white shadow-glow transition hover:bg-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-slate-950">Get Your Gateway Now</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="bg-slate-950">
+    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <p class="text-xs text-slate-500">© 2024 Zenith AI Gateway. All Rights Reserved.</p>
+        <div class="flex items-center gap-3 text-xs text-slate-500">
+          <span class="hidden sm:inline">Privacy‑first • Self‑hosted</span>
+          <span class="sm:hidden">Privacy‑first</span>
+          <span aria-hidden="true">•</span>
+          <a class="underline decoration-white/10 underline-offset-4 hover:text-slate-300" href="#how">How it works</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
