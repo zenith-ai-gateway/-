@@ -45,6 +45,15 @@
     body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
     ::selection{ background:#6366f1; color:white }
     pre, code { font-feature-settings: "liga" 0; }
+    
+    /* Animation for the model slider */
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-scroll {
+      animation: scroll 40s linear infinite;
+    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-200 antialiased">
@@ -162,6 +171,43 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ===== Supported Models Slider ===== -->
+    <section id="supported-models" class="border-t border-white/5 bg-slate-950 py-12">
+        <div class="mx-auto max-w-7xl text-center">
+            <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Works With 100+ Models</h2>
+            <p class="mt-3 text-slate-400">Connect to OpenAI, Anthropic, Cohere, Google, Azure, and many more.</p>
+        </div>
+        <div class="relative mt-8 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+            <div class="flex w-max animate-scroll">
+                <!-- Duplicate the list for a seamless loop -->
+                <div class="flex items-center justify-center space-x-6 px-3">
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">OpenAI</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Azure</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Anthropic</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Google Gemini</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Cohere</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Hugging Face</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Replicate</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Bedrock</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Ollama</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Vertex AI</span>
+                </div>
+                <div class="flex items-center justify-center space-x-6 px-3">
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">OpenAI</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Azure</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Anthropic</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Google Gemini</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Cohere</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Hugging Face</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Replicate</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Bedrock</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Ollama</span>
+                    <span class="rounded-full bg-slate-800 px-4 py-2 text-sm font-medium text-slate-300 ring-1 ring-white/10">Vertex AI</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- ===== How It Works (Updated Section) ===== -->
