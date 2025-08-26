@@ -48,6 +48,7 @@
   </style>
 </head>
 <body class="bg-slate-950 text-slate-200 antialiased">
+
   <!-- ===== Navbar ===== -->
   <header class="sticky top-0 z-40 border-b border-white/5 bg-slate-950/70 backdrop-blur">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -163,7 +164,7 @@
       </div>
     </section>
 
-    <!-- ===== How It Works ===== -->
+    <!-- ===== How It Works (Updated Section) ===== -->
     <section id="how" class="border-t border-white/5 bg-slate-950">
       <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-3xl text-center">
@@ -171,27 +172,25 @@
           <p class="mt-3 text-slate-400">Run the installer for your OS. Zenith handles the rest—Docker network, Postgres, and the LiteLLM proxy—automatically.</p>
         </div>
 
-        <div class="mt-10 grid gap-6 md:grid-cols-2">
-          <!-- macOS & Linux -->
-          <div class="rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10">
-            <div class="mb-3 flex items-center justify-between">
-              <span class="text-sm font-medium text-slate-300">macOS & Linux</span>
-              <span class="rounded-md bg-white/5 px-2 py-1 text-[10px] tracking-wide text-slate-400 ring-1 ring-white/10">bash</span>
+        <div class="mt-12 grid max-w-4xl mx-auto gap-x-8 gap-y-10 md:grid-cols-2">
+          <!-- Windows -->
+          <div>
+            <h3 class="text-lg font-semibold">For Windows</h3>
+            <div class="mt-4 rounded-xl bg-black/60 p-4 ring-1 ring-white/10">
+              <pre class="text-sm text-slate-200"><code><span class="select-none text-slate-500">C:\zenith-ai-gateway&gt; </span><span class="text-green-400">install.bat</span></code></pre>
             </div>
-            <pre class="overflow-auto rounded-xl bg-black/60 p-4 text-sm leading-relaxed text-slate-200 ring-1 ring-white/10"><code>$ bash install.sh</code></pre>
+            <p class="mt-4 text-sm text-slate-400">Double-click the `install.bat` script. It will guide you through the setup, and automatically open the dashboard in your browser when it's done.</p>
           </div>
 
-          <!-- Windows -->
-          <div class="rounded-2xl bg-slate-900/60 p-5 ring-1 ring-white/10">
-            <div class="mb-3 flex items-center justify-between">
-              <span class="text-sm font-medium text-slate-300">Windows</span>
-              <span class="rounded-md bg-white/5 px-2 py-1 text-[10px] tracking-wide text-slate-400 ring-1 ring-white/10">batch</span>
+          <!-- macOS & Linux -->
+          <div>
+            <h3 class="text-lg font-semibold">For macOS & Linux</h3>
+            <div class="mt-4 rounded-xl bg-black/60 p-4 ring-1 ring-white/10">
+              <pre class="text-sm text-slate-200"><code><span class="select-none text-slate-500">~/zenith-ai-gateway$ </span><span class="text-green-400">bash install.sh</span></code></pre>
             </div>
-            <pre class="overflow-auto rounded-xl bg-black/60 p-4 text-sm leading-relaxed text-slate-200 ring-1 ring-white/10"><code>C:\&gt; install.bat</code></pre>
+            <p class="mt-4 text-sm text-slate-400">Open your terminal, navigate to the folder, and run the `install.sh` script. It will handle the setup and provide you with the dashboard URL.</p>
           </div>
         </div>
-
-        <p class="mx-auto mt-6 max-w-3xl text-center text-sm text-slate-400">Just run the script for your OS. Zenith configures Docker, provisions the Postgres database, and launches the proxy with sane defaults. You’ll be ready to point your apps to a single, standardized endpoint in minutes.</p>
       </div>
     </section>
 
@@ -213,6 +212,8 @@
       <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
         <p class="text-xs text-slate-500">© 2025 Zenith AI Gateway. All Rights Reserved.</p>
         <div class="flex items-center gap-3 text-xs text-slate-500">
+          <span>Powered by LiteLLM</span>
+          <span aria-hidden="true">•</span>
           <span class="hidden sm:inline">Privacy‑first • Self‑hosted</span>
           <span class="sm:hidden">Privacy‑first</span>
           <span aria-hidden="true">•</span>
@@ -223,4 +224,3 @@
   </footer>
 </body>
 </html>
-
